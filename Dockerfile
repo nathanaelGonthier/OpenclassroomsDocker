@@ -8,7 +8,7 @@ RUN apt-get update -yq \
 
 ADD . /app/
 WORKDIR /app
-RUN npm install --ignore-optional --network-timeout 600000
+RUN npm install
 
 EXPOSE 2368
 VOLUME /app/logs
