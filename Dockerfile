@@ -1,16 +1,12 @@
-FROM debian
+FROM python:3.12
 
-RUN apt-get update -yq \
-   && apt-get install curl gnupg -yq \
-   && curl -sL https://deb.nodesource.com/setup_20.x | bash \
-   && apt-get install nodejs -yq \
-   && apt-get clean -y
+WORKDIR /usr/src/app
 
-ADD . /app/
-WORKDIR /app
-RUN npm install
+COPY ./requirements.txt ./templates ./main.py ./README.md ./student.py ./
 
-EXPOSE 2368
-VOLUME /app/logs
+RUN apt update -y && \	
+	pip install --no-cache-dir -r requirements.txt
 
-CMD npm run start
+EXPOSE 5000
+
+CMD [ "python", "./main.py" ]
